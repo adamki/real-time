@@ -1,13 +1,33 @@
+const http    = require('http');
 const express = require('express');
-const app = express();
+const app     = express();
 
-app.set('port', process.env.PORT || 3000);
-app.locals.title = 'Pizza Express';
+app.use(express.static('public'));
 
-app.get('/', (request, response) => {
-  response.send('Hello World!');
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
 });
 
-app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on ${app.get('port')}.`);
+var port = process.env.PORT || 3000;
+
+var server = http.createServer(app)
+server.listen( port, () => {
+  console.log("Listening on PORT: " + port );
+})
+
+const socketIo = require('socket.io');
+const io = socketIo(server);
+
+io.on('connection', function (socket) {
+  console.log('A user has connected.', io.engine.clientsCount);
+
+  io.sockets.emit('usersConnected', io.engine.clientsCount);
+
+  socket.on('disconnect', function () {
+    console.log('A user has disconnected.', io.engine.clientsCount);
+    io.sockets.emit('usersConnected', io.engine.clientsCount);
+  });
 });
+
+module.exports = server;
+
