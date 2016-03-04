@@ -4,8 +4,9 @@ const app     = express();
 
 app.use(express.static('public'));
 
+app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.render('index');
 });
 
 var port = process.env.PORT || 3000;
