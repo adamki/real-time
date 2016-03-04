@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/adamki/real-time#readme",
   "dependencies": {
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "lodash": "^4.6.1",
     "socket.io": "^1.4.5"
