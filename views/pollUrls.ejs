@@ -9,10 +9,28 @@
   </head>
   <body>
 
-    <% include ./partials/header %>
 
+    <% include ./partials/header %>
     <div class="row">
-      <% include ./partials/form %>
+      <div class="col-md-3"> </div>
+      <div class="col-md-6">
+        <h4>Please share this link:</h4>
+        <div class="well well-sm text-center">
+          <a href="/<% poll.title %>">
+            <h3>https://quick-polls.herokuapp.com/<%= poll.title %></h3>
+          </a>
+        </div>
+
+        <br/>
+
+        <h4>Administrative Link:</h4>
+        <div class="well well-sm text-center">
+          <a href="/<%= poll.admin %>/<%= poll.title %>">
+            <h3>https://quick-polls.herokuapp.com/<%=poll.admin%>/<%= poll.title %> </h3>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-3"> </div>
     </div>
 
     <% include ./partials/footer %>

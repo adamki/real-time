@@ -1,0 +1,18 @@
+<div class="col-md-3">
+</div>
+<form action="/polls" method="POST" name="poll" class="col-md-6">
+  <fieldset class="form-group">
+    <div class="input-field col s12">
+      <input name="poll[title]" id="poll-title" type="text" placeholder="Cloud Fund" class="form-control">
+    </div>
+    <div class="input-field col s12">
+      <input name="poll[responses][]" id="choice1" type="text" placeholder="Response" class="form-control">
+    </div>
+    <div class="input-field col s12">
+      <input name="poll[responses][]" id="choice2" type="text" placeholder="Reponse" class="form-control">
+    </div>
+  </fieldset>
+  <button class="btn waves-effect waves-light" type="submit">Submit</button>
+</form>
+<div class="col-md-3">
+</div>
