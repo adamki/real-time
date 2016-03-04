@@ -1,82 +1,61 @@
 <!doctype html>
 <html>
   <head>
-    <title>Cloud Source</title>
+    <title>Ask the Audience</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="style.css" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-
   <body>
-    <div class="container-fluid">
-
+    <div class="container">
       <div class="row" id="fg">
+        <!--DOM section-->
         <div class="page-header">
           <h1>Quick Polls<br/><small>A real-time cloud sourcing platform</small></h1>
         </div>
         <div id="connection-count"></div>
       </div>
+    </div>
+    <!--cloud section-->
+    <div id="clouds" id="bg">
+      <div class="cloud x1"></div>
+      <div class="cloud x2"></div>
+      <div class="cloud x3"></div>
+      <div class="cloud x4"></div>
+      <div class="cloud x5"></div>
+    </div>
 
-      <div class="row">
-        <div id="clouds" id="bg">
-          <div class="cloud x1"></div>
-          <div class="cloud x2"></div>
-          <div class="cloud x3"></div>
-          <div class="cloud x4"></div>
-          <div class="cloud x5"></div>
+    <!--MOuntainssss-->
+   <div class="bg">
+      <div class="mountain">
+        <div class="mountain-top">
+          <div class="mountain-cap-1"></div>
+          <div class="mountain-cap-2"></div>
+          <div class="mountain-cap-3"></div>
         </div>
       </div>
-
-      <form action="/polls" method='post'>
-        <input type="hidden" name="count" value="1" />
-        <fieldset class="form-group">
-         <input type="text" name="title" class="form-control" id="title" placeholder="Title">
-        </fieldset>
-        <fieldset class="form-group">
-          <input type="text" name="optionOne" class="form-control" placeholder="Option">
-          <input type="text" name="optionTwo" class="form-control" placeholder="Option">
-        </fieldset>
-        <button type="submit" class="btn lrg">
-          <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-        </button>
-      </form>
-
-
-
-      <div class="row bg">
-        <div class="mountain">
-          <div class="mountain-top">
-            <div class="mountain-cap-1"></div>
-            <div class="mountain-cap-2"></div>
-            <div class="mountain-cap-3"></div>
-          </div>
-        </div>
-
-        <div class="mountain-two">
-          <div class="mountain-top">
-            <div class="mountain-cap-1"></div>
-            <div class="mountain-cap-2"></div>
-            <div class="mountain-cap-3"></div>
-          </div>
-        </div>
-
-        <div class="mountain-three">
-          <div class="mountain-top">
-            <div class="mountain-cap-1"></div>
-            <div class="mountain-cap-2"></div>
-            <div class="mountain-cap-3"></div>
-          </div>
+      <div class="mountain-two">
+        <div class="mountain-top">
+          <div class="mountain-cap-1"></div>
+          <div class="mountain-cap-2"></div>
+          <div class="mountain-cap-3"></div>
         </div>
       </div>
-
+       <div class="mountain-three">
+        <div class="mountain-top">
+          <div class="mountain-cap-1"></div>
+          <div class="mountain-cap-2"></div>
+          <div class="mountain-cap-3"></div>
+        </div>
+      </div>
+      <div class="cloud"></div>
     </div>
 
 
+    <!-- Make sure your JS is at the bottom of the body! -->
 
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
   </body>
