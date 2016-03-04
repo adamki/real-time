@@ -1,10 +1,23 @@
-*, h1, p{
+h1, p{
   font-weight: lighter;
 }
 
-
 #fg{
   z-index: 2;
+}
+
+input {
+  margin-top: 10px;
+}
+
+form, .form-group{
+  width: 400px;
+}
+
+button.btn.lrg{
+  background-color: transparent;
+  font-size: 5em;
+  color: #7ac1e4;
 }
 
 .mountain, .mountain-two, .mountain-three {
@@ -13,7 +26,7 @@
     border-left: 150px solid transparent;
     border-right: 150px solid transparent;
     border-bottom: 180px solid #7ac1e4;
-    z-index: 1;
+    z-index: -1;
 }
 .mountain-two { 
     left: 80px;
@@ -64,9 +77,9 @@ body {
 }
 
 #clouds{
+  width: 100%;
   margin-top: -200px;
   z-index: 1;
-	padding: 100px 0;
 	background: #c9dbe9;
 	background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
 	background: -linear-gradient(top, #c9dbe9 0%, #fff 100%);
