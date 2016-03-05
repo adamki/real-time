@@ -1,22 +1,19 @@
-const http      = require('http');
-const express   = require('express');
-const app       = express();
-
+const http       = require('http');
+const express    = require('express');
+const app        = express();
+const socketIo   = require('socket.io');
+const bodyParser = require('body-parser');
 const generateId = require('./lib/generator');
 const Poll       = require('./lib/poll');
-const socketIo  = require('socket.io');
-var bodyParser  = require('body-parser');
+require('locus');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
-
 app.set('view engine', 'ejs');
 app.locals.polls = {}
 
-
 var port = process.env.PORT || 3000;
-
 var server = http.createServer(app)
 
 server.listen( port, () => {
@@ -28,6 +25,13 @@ const io = socketIo(server);
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+app.get("/polls/:id", (req, res) => {
+
+  var poll = app.locals.polls[req.params.id]
+
+  res.render('user-poll', { poll: poll });
+})
 
 app.post('/polls', (req, res) => {
   var id = generateId(10);
