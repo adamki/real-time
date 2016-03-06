@@ -12,25 +12,20 @@
     <% include ./partials/header %>
 
     <div class="row">
-      <div class="col-md-3"> </div>
-      <div class="col-md-6">
-        <h4>Please share this link:</h4>
-        <div class="well well-sm text-center">
-          <a href="/polls/<%= poll.id %>">
-            <h3>https://quick-polls.herokuapp.com/polls/<%= poll.id %></h3>
-          </a>
-        </div>
-
+      <div class="col-md-2"> </div>
+      <div class="col-md-8 text-center">
+        <h1> <%= poll.title %> <small> has __ total votes.</small></h1>
         <br/>
-
-        <h4>Administrative Link:</h4>
-        <div class="well well-sm text-center">
-          <a href="/polls/<%= poll.admin %>/<%= poll.id %>">
-            <h3>https://quick-polls.herokuapp.com/polls/<%=poll.admin%>/<%= poll.id %> </h3>
-          </a>
+        <br/>
+        <div id="choices">
+          <% for(var choice in poll.choices) { %>
+          <%= poll.choices[choice] %> <h3><%= choice %></h3>
+          <% } %>
         </div>
+
+        <div id="votes"> </div>
       </div>
-      <div class="col-md-3"> </div>
+      <div class="col-md-2"> </div>
     </div>
 
     <% include ./partials/footer %>

@@ -1,3 +1,5 @@
+'use strict';
+
 const http       = require('http');
 const express    = require('express');
 const app        = express();
@@ -12,6 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
 app.locals.polls = {}
+var votes = {}
 
 var port = process.env.PORT || 3000;
 var server = http.createServer(app)
@@ -27,10 +30,8 @@ app.get('/', (req, res) => {
 });
 
 app.get("/polls/:id", (req, res) => {
-
   var poll = app.locals.polls[req.params.id]
-
-  res.render('user-poll', { poll: poll });
+  res.render('userPoll', { poll: poll });
 })
 
 app.post('/polls', (req, res) => {
@@ -38,13 +39,8 @@ app.post('/polls', (req, res) => {
   var adminKey = generateId(3);
   var pollData = req.body.poll
   var title = pollData.title
-  var votes = {}
 
-  pollData.responses.forEach(function(response) {
-    votes[response] = 0
-  })
-
-  var newPoll = new Poll(id, adminKey, title, votes)
+  var newPoll = new Poll(id, adminKey, pollData, title)
 
   app.locals.polls[newPoll.id] = newPoll
 
@@ -54,14 +50,20 @@ app.post('/polls', (req, res) => {
 
 io.on('connection', function (socket) {
   console.log('A user has connected.', io.engine.clientsCount);
-
   io.sockets.emit('usersConnected', io.engine.clientsCount);
+
+  socket.on('message', function (channel, message) {
+    let poll = app.locals.polls[message.id];
+    if (channel === 'voteCast') {
+      console.log(poll);
+      poll.votes.push(message.choice)
+      io.sockets.emit('updateVotes', poll);
+    }
+  });
 
   socket.on('disconnect', function () {
     console.log('A user has disconnected.', io.engine.clientsCount);
     io.sockets.emit('usersConnected', io.engine.clientsCount);
   });
 });
-
-module.exports = server;
 
