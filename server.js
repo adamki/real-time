@@ -39,7 +39,6 @@ app.post('/polls', (req, res) => {
   let adminKey = generateId(3);
   let pollData = req.body.poll
   let title = pollData.title
-
   let newPoll = new Poll(id, adminKey, pollData,  title, votes)
 
   app.locals.polls[newPoll.id] = newPoll
