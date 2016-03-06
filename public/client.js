@@ -1,15 +1,19 @@
 var socket = io();
 
 var connectionCount = document.getElementById('connection-count');
-var votes = document.getElementById('votes');
+var $votes =  $("#votes")
 
 socket.on('usersConnected',(count) => {
+  console.log(votes);
   connectionCount.innerText = 'Connected Users: ' + count;
 });
 
 socket.on('updateVotes',(votes) => {
-  console.log(votes)
-  votes.innerText = 'votes:' + votes;
+  $votes.empty();
+  console.log(votes);
+  Object.keys(votes).forEach((key) => {
+    $votes.append(`<h4>${key}: ${votes[key]}</h4>`);
+  })
 });
 
 var votes = document.querySelectorAll('#choices h3');

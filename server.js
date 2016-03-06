@@ -14,10 +14,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
 app.locals.polls = {}
-var votes = {}
+let votes = {}
 
-var port = process.env.PORT || 3000;
-var server = http.createServer(app)
+let port = process.env.PORT || 3000;
+let server = http.createServer(app)
 
 server.listen( port, () => {
   console.log("Listening on PORT: " + port );
@@ -30,17 +30,17 @@ app.get('/', (req, res) => {
 });
 
 app.get("/polls/:id", (req, res) => {
-  var poll = app.locals.polls[req.params.id]
+  let poll = app.locals.polls[req.params.id]
   res.render('userPoll', { poll: poll });
 })
 
 app.post('/polls', (req, res) => {
-  var id = generateId(10);
-  var adminKey = generateId(3);
-  var pollData = req.body.poll
-  var title = pollData.title
+  let id = generateId(10);
+  let adminKey = generateId(3);
+  let pollData = req.body.poll
+  let title = pollData.title
 
-  var newPoll = new Poll(id, adminKey, pollData, title)
+  let newPoll = new Poll(id, adminKey, pollData,  title, votes)
 
   app.locals.polls[newPoll.id] = newPoll
 
@@ -49,15 +49,13 @@ app.post('/polls', (req, res) => {
 
 
 io.on('connection', function (socket) {
-  console.log('A user has connected.', io.engine.clientsCount);
   io.sockets.emit('usersConnected', io.engine.clientsCount);
 
   socket.on('message', function (channel, message) {
     let poll = app.locals.polls[message.id];
     if (channel === 'voteCast') {
-      console.log(poll);
       poll.votes.push(message.choice)
-      io.sockets.emit('updateVotes', poll);
+      io.sockets.emit('updateVotes', poll.countVotes());
     }
   });
 

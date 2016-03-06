@@ -14,16 +14,16 @@
     <div class="row">
       <div class="col-md-2"> </div>
       <div class="col-md-8 text-center">
-        <h1> <%= poll.title %> <small> has __ total votes.</small></h1>
+        <h1> <%= poll.title %> <small> currently has <%= poll.votes.length %> total votes.</small></h1>
         <br/>
         <br/>
         <div id="choices">
           <% for(var choice in poll.choices) { %>
-          <%= poll.choices[choice] %> <h3><%= choice %></h3>
+            <h3><%= poll.choices[choice] %></h3>
           <% } %>
         </div>
 
-        <div id="votes"> </div>
+        <div id="votes">votes </div>
       </div>
       <div class="col-md-2"> </div>
     </div>
