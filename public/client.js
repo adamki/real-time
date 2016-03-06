@@ -8,9 +8,8 @@ socket.on('usersConnected',(count) => {
   connectionCount.innerText = 'Connected Users: ' + count;
 });
 
-socket.on('updateVotes',(votes) => {
+socket.on('updateVotes', (votes) => {
   $votes.empty();
-  console.log(votes);
   Object.keys(votes).forEach((key) => {
     $votes.append(`<h4>${key}: ${votes[key]}</h4>`);
   })

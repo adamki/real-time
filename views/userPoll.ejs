@@ -19,10 +19,12 @@
         <br/>
         <div id="choices">
           <% for(var choice in poll.choices) { %>
-            <h3><%= poll.choices[choice] %></h3>
+            <h3><a><%= poll.choices[choice] %></a></h3>
           <% } %>
         </div>
-
+        <br/>
+        <br/>
+        <h3>Current Results</h3>
         <div id="votes">votes </div>
       </div>
       <div class="col-md-2"> </div>
