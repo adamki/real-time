@@ -2,14 +2,23 @@
 </div>
 <form action="/polls" method="POST" name="poll" class="col-md-6">
   <fieldset class="form-group">
-    <div class="input-field col s12">
-      <input name="poll[title]" id="poll-title" type="text" placeholder="Cloud Fund" class="form-control">
+    <div id="text-input" class="name">
+      <div class="input-field col s12">
+        <input name="poll[title]" id="poll-title" type="text" placeholder="Cloud Fund" class="form-control">
+      </div>
+      <div class="input-field col s12">
+        <input name="poll[responses][]" id="choice1" type="text" placeholder="Response 1" class="form-control">
+      </div>
+      <div class="input-field col s12">
+        <input name="poll[responses][]" id="choice2" type="text" placeholder="Response 2" class="form-control">
+      </div>
     </div>
-    <div class="input-field col s12">
-      <input name="poll[responses][]" id="choice1" type="text" placeholder="Response 1" class="form-control">
-    </div>
-    <div class="input-field col s12">
-      <input name="poll[responses][]" id="choice2" type="text" placeholder="Response 2" class="form-control">
+
+    <div id="time-input" class="name">
+      <div class="input-field col s12">
+        <input type="date" name="poll[expiresOn]" id="datePicker" class="datepicker center center-align">
+        <input type="time" name="poll[expiresAt]" class="time ui-timepicker-input center center-align">
+      </div>
     </div>
   </fieldset>
 

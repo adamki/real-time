@@ -1,4 +1,5 @@
 'use strict';
+require('locus');
 
 const http       = require('http');
 const express    = require('express');
@@ -7,15 +8,14 @@ const socketIo   = require('socket.io');
 const bodyParser = require('body-parser');
 const generateId = require('./lib/generator');
 const Poll       = require('./lib/poll');
-require('locus');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
+
 app.locals.polls = {}
 let votes = {}
-
 let port = process.env.PORT || 3000;
 let server = http.createServer(app)
 
@@ -34,6 +34,11 @@ app.get("/polls/:id", (req, res) => {
   res.render('userPoll', { poll: poll });
 })
 
+app.get("/polls/:admin/:id", (req, res) => {
+  let poll = app.locals.polls[req.params.id]
+  res.render('adminPoll', { poll: poll });
+})
+
 app.post('/polls', (req, res) => {
   let id = generateId(10);
   let adminKey = generateId(3);
@@ -47,6 +52,10 @@ app.post('/polls', (req, res) => {
 });
 
 
+
+
+
+
 io.on('connection', function (socket) {
   io.sockets.emit('usersConnected', io.engine.clientsCount);
 
@@ -55,6 +64,12 @@ io.on('connection', function (socket) {
     if (channel === 'voteCast') {
       poll.votes.push(message.choice)
       io.sockets.emit('updateVotes', poll.countVotes());
+    }
+
+    if (channel === 'endPoll' ) {
+      let poll = app.locals.polls[message.pollId]
+      poll.active = false
+      io.sockets.emit('pollClosed')
     }
   });
 
