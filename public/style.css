@@ -19,6 +19,17 @@ form{
   height: 10px;
 }
 
+.glyphicon-thumbs-up:before {
+  font-size: large;
+  cursor: pointer; 
+  cursor: hand;
+}
+
+
+.glyphicon-thumbs-up:click {
+  color: red;
+}
+
 .mountain, .mountain-two, .mountain-three {
     position: absolute;
     bottom: 0;
