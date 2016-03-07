@@ -1,5 +1,5 @@
-'use strict';
-require('locus');
+'use strict'; require('locus');
+
 
 const http       = require('http');
 const express    = require('express');
@@ -13,11 +13,15 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
+app.set('port', process.env.PORT || 3000);
+app.locals.title = 'Cloud Fun(ds)';
 
 app.locals.polls = {}
+
 let votes = {}
 let port = process.env.PORT || 3000;
 let server = http.createServer(app)
+
 
 server.listen( port, () => {
   console.log("Listening on PORT: " + port );
@@ -30,6 +34,9 @@ app.get('/', (req, res) => {
 });
 
 app.get("/polls/:id", (req, res) => {
+  console.log(req.body);
+  if (!req.body.poll) { return res.sendStatus(400); }
+
   let poll = app.locals.polls[req.params.id]
   res.render('userPoll', { poll: poll });
 })
@@ -40,6 +47,8 @@ app.get("/polls/:admin/:id", (req, res) => {
 })
 
 app.post('/polls', (req, res) => {
+  if (!req.body.poll) { return res.sendStatus(400); }
+
   let id = generateId(10);
   let adminKey = generateId(3);
   let pollData = req.body.poll
@@ -50,8 +59,6 @@ app.post('/polls', (req, res) => {
 
   res.render('pollUrls', { poll: newPoll });
 });
-
-
 
 
 
@@ -79,3 +86,10 @@ io.on('connection', function (socket) {
   });
 });
 
+if (!module.parent) {
+  app.listen(app.get('port'), () => {
+    console.log(`${app.locals.title} is running on ${app.get('port')}.`);
+  });
+}
+
+module.exports = app;
